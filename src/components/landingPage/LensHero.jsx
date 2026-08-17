@@ -221,37 +221,37 @@ const LensHero = () => {
             const frontGlassPosition = getExplodedPosition(
                 frontGlass,
                 { x: 0, y: 0, z: 1 },
-                110
+                220
             )
 
             const secondGlassPosition = getExplodedPosition(
                 secondGlass,
                 { x: 0, y: 0, z: 1 },
-                90
+                170
             )
 
             const thirdGlassPosition = getExplodedPosition(
                 thirdGlass,
                 { x: 0, y: 0, z: -1 },
-                85
+                130
             )
 
             const fourthGlassPosition = getExplodedPosition(
                 fourthGlass,
                 { x: 0, y: 0, z: -1 },
-                100
+                165
             )
 
             const fifthGlassPosition = getExplodedPosition(
                 fifthGlass,
                 { x: 0, y: 0, z: -1 },
-                115
+                210
             )
 
             const sixthGlassPosition = getExplodedPosition(
                 sixthGlass,
                 { x: 0, y: 0, z: -1 },
-                135
+                255
             )
 
             const scrollTimeline = gsap.timeline({
@@ -267,12 +267,17 @@ const LensHero = () => {
             })
 
             scrollTimeline
-                // 1. Move the entire lens backward
+                // 1. Move the entire lens backward (less than before so it stays large on screen)
                 .to(lens.position, {
-                    z: -1.5,
+                    z: -1.9,
                     duration: 4,
                     ease: "none",
                 })
+                // .to(lens.rotation, {
+                //     x: 1.64,
+                //     duration: 4,
+                //     ease: "none",
+                // }, "<")
                 // 2. Front glass
                 .to(frontGlass.position, {
                     x: frontGlassPosition.x,
@@ -323,63 +328,63 @@ const LensHero = () => {
                 }, "<")
                 // 8. Top Ring
                 .to(topRing.position, {
-                    y: 50,
+                    y: 90,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 .to(topRing.scale, {
-                    x: 1.15,
-                    z: 1.15,
+                    x: 1.28,
+                    z: 1.28,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 9. Bottom Ring
                 .to(bottomRing.position, {
-                    y: -60,
+                    y: -100,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 .to(bottomRing.scale, {
-                    x: 1.15,
-                    z: 1.15,
+                    x: 1.28,
+                    z: 1.28,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 10. Red Ring
                 .to(redRing.position, {
-                    y: 75,
+                    y: 135,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 11. Front Bezel
                 .to(frontBezel.position, {
-                    y: 160,
+                    y: 300,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 12. Rear Mount
                 .to(rearMount.position, {
-                    y: -180,
+                    y: -320,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 13. Info Window
                 .to(infoWindow.position, {
-                    x: 25,
+                    x: 55,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 14. Switch Panel
                 .to(switchPanel.position, {
-                    x: -25,
-                    z: 5,
+                    x: -50,
+                    z: 12,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 15. Branding Panel
                 .to(brandingPanel.position, {
-                    x: 25,
-                    z: 25,
+                    x: 45,
+                    z: 45,
                     duration: 2,
                     ease: "none",
                 }, "<")
