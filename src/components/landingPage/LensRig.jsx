@@ -20,6 +20,14 @@ const LensRig = ({ onReady }) => {
                         fourthGlass: parts.fourthGlass,
                         fifthGlass: parts.fifthGlass,
                         sixthGlass: parts.sixthGlass,
+                        topRing: parts.topRing,
+                        bottomRing: parts.bottomRing,
+                        redRing: parts.redRing,
+                        frontBezel: parts.frontBezel,
+                        rearMount: parts.rearMount,
+                        infoWindow: parts.infoWindow,
+                        switchPanel: parts.switchPanel,
+                        brandingPanel: parts.brandingPanel,
                     })
                 }}
             />

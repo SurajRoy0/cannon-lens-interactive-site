@@ -40,6 +40,15 @@ const LensHero = () => {
     const fifthGlassRef = useRef(null)
     const sixthGlassRef = useRef(null)
 
+    const topRingRef = useRef(null)
+    const bottomRingRef = useRef(null)
+    const redRingRef = useRef(null)
+    const frontBezelRef = useRef(null)
+    const rearMountRef = useRef(null)
+    const infoWindowRef = useRef(null)
+    const switchPanelRef = useRef(null)
+    const brandingPanelRef = useRef(null)
+
     const handleLensReady = useCallback((parts) => {
 
         if (!parts) return
@@ -55,7 +64,15 @@ const LensHero = () => {
         fifthGlassRef.current = parts.fifthGlass
         sixthGlassRef.current = parts.sixthGlass
 
-
+        // Housing & Mech
+        topRingRef.current = parts.topRing
+        bottomRingRef.current = parts.bottomRing
+        redRingRef.current = parts.redRing
+        frontBezelRef.current = parts.frontBezel
+        rearMountRef.current = parts.rearMount
+        infoWindowRef.current = parts.infoWindow
+        switchPanelRef.current = parts.switchPanel
+        brandingPanelRef.current = parts.brandingPanel
 
         setSceneReady(true)
 
@@ -73,6 +90,16 @@ const LensHero = () => {
         const fourthGlass = fourthGlassRef.current
         const fifthGlass = fifthGlassRef.current
         const sixthGlass = sixthGlassRef.current
+
+        const topRing = topRingRef.current
+        const bottomRing = bottomRingRef.current
+        const redRing = redRingRef.current
+        const frontBezel = frontBezelRef.current
+        const rearMount = rearMountRef.current
+        const infoWindow = infoWindowRef.current
+        const switchPanel = switchPanelRef.current
+        const brandingPanel = brandingPanelRef.current
+
         if (
             !lens ||
             !section ||
@@ -81,7 +108,15 @@ const LensHero = () => {
             !thirdGlass ||
             !fourthGlass ||
             !fifthGlass ||
-            !sixthGlass
+            !sixthGlass ||
+            !topRing ||
+            !bottomRing ||
+            !redRing ||
+            !frontBezel ||
+            !rearMount ||
+            !infoWindow ||
+            !switchPanel ||
+            !brandingPanel
         ) {
             return
         }
@@ -107,6 +142,27 @@ const LensHero = () => {
             z: 0,
         })
 
+        gsap.set([
+            topRing.position,
+            bottomRing.position,
+            redRing.position,
+            frontBezel.position,
+            rearMount.position,
+            infoWindow.position,
+            switchPanel.position,
+            brandingPanel.position
+        ], {
+            x: 0,
+            y: 0,
+            z: 0,
+        })
+
+        gsap.set([topRing.scale, bottomRing.scale], {
+            x: 1,
+            y: 1,
+            z: 1,
+        })
+
         // ------------------------------------------------------------
         // INTRO
         // ------------------------------------------------------------
@@ -118,12 +174,12 @@ const LensHero = () => {
             },
         })
 
-        gsap.to(lens.rotation, {
-            y: "+=" + Math.PI * 2,
-            duration: 4,
-            ease: "none",
-            repeat: -1,
-        })
+        // gsap.to(lens.rotation, {
+        //     y: "+=" + Math.PI * 2,
+        //     duration: 4,
+        //     ease: "none",
+        //     repeat: -1,
+        // })
 
         // Main rotation
         intro.to(lens.rotation, {
@@ -165,13 +221,13 @@ const LensHero = () => {
             const frontGlassPosition = getExplodedPosition(
                 frontGlass,
                 { x: 0, y: 0, z: 1 },
-                70
+                110
             )
 
             const secondGlassPosition = getExplodedPosition(
                 secondGlass,
                 { x: 0, y: 0, z: 1 },
-                55
+                90
             )
 
             const thirdGlassPosition = getExplodedPosition(
@@ -189,13 +245,13 @@ const LensHero = () => {
             const fifthGlassPosition = getExplodedPosition(
                 fifthGlass,
                 { x: 0, y: 0, z: -1 },
-                95
+                115
             )
 
             const sixthGlassPosition = getExplodedPosition(
                 sixthGlass,
                 { x: 0, y: 0, z: -1 },
-                115
+                135
             )
 
             const scrollTimeline = gsap.timeline({
@@ -265,6 +321,68 @@ const LensHero = () => {
                     duration: 2,
                     ease: "none",
                 }, "<")
+                // 8. Top Ring
+                .to(topRing.position, {
+                    y: 50,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
+                .to(topRing.scale, {
+                    x: 1.15,
+                    z: 1.15,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
+                // 9. Bottom Ring
+                .to(bottomRing.position, {
+                    y: -60,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
+                .to(bottomRing.scale, {
+                    x: 1.15,
+                    z: 1.15,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
+                // 10. Red Ring
+                .to(redRing.position, {
+                    y: 75,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
+                // 11. Front Bezel
+                .to(frontBezel.position, {
+                    y: 160,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
+                // 12. Rear Mount
+                .to(rearMount.position, {
+                    y: -180,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
+                // 13. Info Window
+                .to(infoWindow.position, {
+                    x: 25,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
+                // 14. Switch Panel
+                .to(switchPanel.position, {
+                    x: -25,
+                    z: 5,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
+                // 15. Branding Panel
+                .to(brandingPanel.position, {
+                    x: 25,
+                    z: 25,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
         }
 
         // ------------------------------------------------------------
@@ -275,6 +393,14 @@ const LensHero = () => {
             intro.kill()
             gsap.killTweensOf(lens.position)
             gsap.killTweensOf(lens.rotation)
+            const allParts = [
+                frontGlass.position, secondGlass.position, thirdGlass.position,
+                fourthGlass.position, fifthGlass.position, sixthGlass.position,
+                topRing.position, topRing.scale, bottomRing.position, bottomRing.scale,
+                redRing.position, frontBezel.position, rearMount.position,
+                infoWindow.position, switchPanel.position, brandingPanel.position
+            ]
+            allParts.forEach(part => gsap.killTweensOf(part))
         }
     }, {
         dependencies: [sceneReady],
