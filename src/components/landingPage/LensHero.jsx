@@ -295,7 +295,7 @@ const LensHero = () => {
                     duration: 4,
                     ease: "none",
                 }).to(lens.rotation, {
-                    z: 1,
+                    z: 1.1,
                     duration: 1,
                     ease: "none",
                 }, "<")
@@ -360,6 +360,7 @@ const LensHero = () => {
                 }, "<")
                 .to(topRing.scale, {
                     x: 1.28,
+                    y: 1.28,
                     z: 1.28,
                     duration: 2,
                     ease: "none",
@@ -372,6 +373,7 @@ const LensHero = () => {
                 }, "<")
                 .to(bottomRing.scale, {
                     x: 1.28,
+                    y: 1.28,
                     z: 1.28,
                     duration: 2,
                     ease: "none",
@@ -400,6 +402,13 @@ const LensHero = () => {
                     duration: 2,
                     ease: "none",
                 }, "<")
+                .to(infoWindow.scale, {
+                    x: 1.28,
+                    y: 1.28,
+                    z: 1.28,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
                 // 14. Switch Panel
                 .to(switchPanel.position, {
                     x: -50,
@@ -407,10 +416,24 @@ const LensHero = () => {
                     duration: 2,
                     ease: "none",
                 }, "<")
+                .to(switchPanel.scale, {
+                    x: 1.28,
+                    y: 1.28,
+                    z: 1.28,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
                 // 15. Branding Panel
                 .to(brandingPanel.position, {
                     x: 45,
                     z: 45,
+                    duration: 2,
+                    ease: "none",
+                }, "<")
+                .to(brandingPanel.scale, {
+                    x: 1.28,
+                    y: 1.28,
+                    z: 1.28,
                     duration: 2,
                     ease: "none",
                 }, "<").to(spinGroup.rotation, {
@@ -435,7 +458,8 @@ const LensHero = () => {
                 fourthGlass.position, fifthGlass.position, sixthGlass.position,
                 topRing.position, topRing.scale, bottomRing.position, bottomRing.scale,
                 redRing.position, frontBezel.position, rearMount.position,
-                infoWindow.position, switchPanel.position, brandingPanel.position
+                infoWindow.position, infoWindow.scale, switchPanel.position, switchPanel.scale,
+                brandingPanel.position, brandingPanel.scale
             ]
             allParts.forEach(part => gsap.killTweensOf(part))
         }
