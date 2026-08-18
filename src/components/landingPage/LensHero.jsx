@@ -31,6 +31,7 @@ const LensHero = () => {
     const [sceneReady, setSceneReady] = useState(false)
 
     const lensRef = useRef(null)
+    const spinGroupRef = useRef(null)
     const explodeRef = useRef(null)
 
     const frontGlassRef = useRef(null)
@@ -54,6 +55,7 @@ const LensHero = () => {
         if (!parts) return
 
         lensRef.current = parts.lens
+        spinGroupRef.current = parts.spinGroup
         explodeRef.current = parts.explode
 
         // Glass
@@ -82,6 +84,7 @@ const LensHero = () => {
         if (!sceneReady) return
 
         const lens = lensRef.current
+        const spinGroup = spinGroupRef.current
         const section = sectionRef.current
 
         const frontGlass = frontGlassRef.current
@@ -102,6 +105,7 @@ const LensHero = () => {
 
         if (
             !lens ||
+            !spinGroup ||
             !section ||
             !frontGlass ||
             !secondGlass ||
@@ -139,29 +143,35 @@ const LensHero = () => {
         gsap.set(lens.rotation, {
             x: Math.PI * 0.5,
             y: 0,
-            z: 0,
+            z: .01,
         })
 
-        gsap.set([
-            topRing.position,
-            bottomRing.position,
-            redRing.position,
-            frontBezel.position,
-            rearMount.position,
-            infoWindow.position,
-            switchPanel.position,
-            brandingPanel.position
-        ], {
+        gsap.set(spinGroup.rotation, {
             x: 0,
             y: 0,
             z: 0,
         })
 
-        gsap.set([topRing.scale, bottomRing.scale], {
-            x: 1,
-            y: 1,
-            z: 1,
-        })
+        // gsap.set([
+        //     topRing.position,
+        //     bottomRing.position,
+        //     redRing.position,
+        //     frontBezel.position,
+        //     rearMount.position,
+        //     infoWindow.position,
+        //     switchPanel.position,
+        //     brandingPanel.position
+        // ], {
+        //     x: 0,
+        //     y: 0,
+        //     z: 0,
+        // })
+
+        // gsap.set([topRing.scale, bottomRing.scale], {
+        //     x: 1,
+        //     y: 1,
+        //     z: 1,
+        // })
 
         // ------------------------------------------------------------
         // INTRO
@@ -174,19 +184,11 @@ const LensHero = () => {
             },
         })
 
-        // gsap.to(lens.rotation, {
-        //     y: "+=" + Math.PI * 2,
-        //     duration: 4,
-        //     ease: "none",
-        //     repeat: -1,
-        // })
-
-        // Main rotation
-        intro.to(lens.rotation, {
-            x: 0.7075,
-            z: 0.6161,
-            duration: 2,
-            ease: "power3.out",
+        const spinning = gsap.to(spinGroup.rotation, {
+            y: Math.PI * 4,
+            duration: 4,
+            ease: "none",
+            repeat: -1,
         })
 
         // Move lens into position
@@ -199,6 +201,26 @@ const LensHero = () => {
             },
             "<"
         )
+
+        // Main rotation
+        intro.to(lens.rotation, {
+            x: 0.7075,
+            z: 0.6161,
+            duration: 2,
+            ease: "power3.out",
+        }, "-=1")
+
+        // Decelerate spin to 0
+        intro.to(spinning, {
+            timeScale: 0,
+            duration: 2,
+            ease: "power2.out",
+            onComplete: () => {
+                spinning.kill()
+            }
+        }, "<")
+
+
 
         // ------------------------------------------------------------
         // SCROLL ANIMATION
@@ -227,7 +249,7 @@ const LensHero = () => {
             const secondGlassPosition = getExplodedPosition(
                 secondGlass,
                 { x: 0, y: 0, z: 1 },
-                170
+                150
             )
 
             const thirdGlassPosition = getExplodedPosition(
@@ -272,7 +294,11 @@ const LensHero = () => {
                     z: -1.9,
                     duration: 4,
                     ease: "none",
-                })
+                }).to(lens.rotation, {
+                    z: 1,
+                    duration: 1,
+                    ease: "none",
+                }, "<")
                 // .to(lens.rotation, {
                 //     x: 1.64,
                 //     duration: 4,
@@ -387,7 +413,12 @@ const LensHero = () => {
                     z: 45,
                     duration: 2,
                     ease: "none",
+                }, "<").to(spinGroup.rotation, {
+                    y: `+=${Math.PI * 4}`,
+                    duration: 4,
+                    ease: "none",
                 }, "<")
+
         }
 
         // ------------------------------------------------------------
@@ -398,6 +429,7 @@ const LensHero = () => {
             intro.kill()
             gsap.killTweensOf(lens.position)
             gsap.killTweensOf(lens.rotation)
+            gsap.killTweensOf(spinGroup.rotation)
             const allParts = [
                 frontGlass.position, secondGlass.position, thirdGlass.position,
                 fourthGlass.position, fifthGlass.position, sixthGlass.position,
@@ -436,11 +468,11 @@ const LensHero = () => {
                         far={4}
                     />
                     <LensRig onReady={handleLensReady} />
-                    <LensDebug lensRef={lensRef} />
+                    {/* <LensDebug lensRef={lensRef} /> */}
                 </Suspense>
             </Canvas>
 
-                <Leva />
+                {/* <Leva /> */}
                 <Loader />
                 <Navbar navRef={navRef} />
 
