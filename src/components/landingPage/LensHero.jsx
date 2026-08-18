@@ -481,9 +481,9 @@ const LensHero = () => {
     return (
         <section
             ref={sectionRef}
-            className="relative h-screen text-[#151515]"
+            className="relative h-dvh text-[#151515] p-5"
         >
-            <div className="relative h-screen w-full overflow-hidden bg-[radial-gradient(75%_65%_at_50%_42%,#202024_0%,#0c0c0f_50%,#020203_100%)]">                <Canvas
+            <div className="relative h-full rounded-2xl w-full overflow-hidden bg-[radial-gradient(75%_65%_at_50%_42%,#202024_0%,#0c0c0f_50%,#020203_100%)]">                <Canvas
                 className="absolute inset-0"
                 dpr={[1, 2]}
                 camera={{
