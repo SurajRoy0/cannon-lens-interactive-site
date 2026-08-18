@@ -240,40 +240,50 @@ const LensHero = () => {
         }
 
         function createScrollAnimation() {
+            const width = window.innerWidth
+            const height = window.innerHeight
+
+            const isMobile = width < 768
+            const isTablet = width >= 768 && width < 1024
+            const spreadFactor = isMobile ? 0.45 : (isTablet ? 0.7 : 1.0)
+
+            const targetLensZ = isMobile ? -2.25 : (isTablet ? -2.0 : -1.9)
+            const targetZRotation = Math.PI / 2 - Math.atan2(height, width)
+
             const frontGlassPosition = getExplodedPosition(
                 frontGlass,
                 { x: 0, y: 0, z: 1 },
-                220
+                220 * spreadFactor
             )
 
             const secondGlassPosition = getExplodedPosition(
                 secondGlass,
                 { x: 0, y: 0, z: 1 },
-                150
+                150 * spreadFactor
             )
 
             const thirdGlassPosition = getExplodedPosition(
                 thirdGlass,
                 { x: 0, y: 0, z: -1 },
-                130
+                130 * spreadFactor
             )
 
             const fourthGlassPosition = getExplodedPosition(
                 fourthGlass,
                 { x: 0, y: 0, z: -1 },
-                165
+                165 * spreadFactor
             )
 
             const fifthGlassPosition = getExplodedPosition(
                 fifthGlass,
                 { x: 0, y: 0, z: -1 },
-                210
+                210 * spreadFactor
             )
 
             const sixthGlassPosition = getExplodedPosition(
                 sixthGlass,
                 { x: 0, y: 0, z: -1 },
-                255
+                255 * spreadFactor
             )
 
             const scrollTimeline = gsap.timeline({
@@ -291,11 +301,11 @@ const LensHero = () => {
             scrollTimeline
                 // 1. Move the entire lens backward (less than before so it stays large on screen)
                 .to(lens.position, {
-                    z: -1.9,
+                    z: targetLensZ,
                     duration: 4,
                     ease: "none",
                 }).to(lens.rotation, {
-                    z: 1.1,
+                    z: targetZRotation,
                     duration: 1,
                     ease: "none",
                 }, "<")
@@ -354,86 +364,86 @@ const LensHero = () => {
                 }, "<")
                 // 8. Top Ring
                 .to(topRing.position, {
-                    y: 90,
+                    y: 90 * spreadFactor - 50,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 .to(topRing.scale, {
-                    x: 1.28,
-                    y: 1.28,
-                    z: 1.28,
+                    x: 2.0,
+                    y: 3.0,
+                    z: 2.0,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 9. Bottom Ring
                 .to(bottomRing.position, {
-                    y: -100,
+                    y: -100 * spreadFactor,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 .to(bottomRing.scale, {
-                    x: 1.28,
-                    y: 1.28,
-                    z: 1.28,
+                    x: 2.0,
+                    y: 3.0,
+                    z: 2.0,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 10. Red Ring
                 .to(redRing.position, {
-                    y: 135,
+                    y: 135 * spreadFactor,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 11. Front Bezel
                 .to(frontBezel.position, {
-                    y: 300,
+                    y: 300 * spreadFactor,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 12. Rear Mount
                 .to(rearMount.position, {
-                    y: -320,
+                    y: -320 * spreadFactor,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 13. Info Window
                 .to(infoWindow.position, {
-                    x: 55,
+                    x: 55 * spreadFactor,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 .to(infoWindow.scale, {
-                    x: 1.28,
-                    y: 1.28,
-                    z: 1.28,
+                    x: 2.0,
+                    y: 2.0,
+                    z: 2.0,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 14. Switch Panel
                 .to(switchPanel.position, {
-                    x: -50,
-                    z: 12,
+                    x: -50 * spreadFactor,
+                    z: 12 * spreadFactor,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 .to(switchPanel.scale, {
-                    x: 1.28,
-                    y: 1.28,
-                    z: 1.28,
+                    x: 2.0,
+                    y: 2.0,
+                    z: 2.0,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 // 15. Branding Panel
                 .to(brandingPanel.position, {
-                    x: 45,
-                    z: 45,
+                    x: 45 * spreadFactor,
+                    z: 45 * spreadFactor,
                     duration: 2,
                     ease: "none",
                 }, "<")
                 .to(brandingPanel.scale, {
-                    x: 1.28,
-                    y: 1.28,
-                    z: 1.28,
+                    x: 2.0,
+                    y: 2.0,
+                    z: 2.0,
                     duration: 2,
                     ease: "none",
                 }, "<").to(spinGroup.rotation, {
